@@ -1,0 +1,33 @@
+RVG Panel deployment on Railway
+
+This repository now has two explicit runtime roles controlled by RVG_ROLE.
+
+For Railway use ONLY:
+  RVG_ROLE=panel
+
+The panel role is management/UI only. It does not register VLESS/Trojan/Shadowsocks WebSocket relays, XHTTP routes, the generic HTTP proxy, MTProto processes, or Railway TCP-proxy helpers.
+
+Expected files include:
+- main.py
+- pages.py
+- central.py
+- requirements.txt
+- protocol/__init__.py
+- protocol/mtproto/mtproto_native.py
+- protocol/vless/...
+- protocol/trojan/...
+- protocol/shadowsocks/...
+- assets/rvg-background.jpg
+
+Railway start command:
+  python main.py
+
+Required variable:
+  RVG_ROLE=panel
+
+Set a strong ADMIN_PASSWORD. A persistent /data volume and/or REDIS_URL is recommended for panel state.
+
+Actual proxy transports must run on a separate node deployed with:
+  RVG_ROLE=node
+
+See PANEL_NODE_DEPLOY.md for the split deployment procedure.
